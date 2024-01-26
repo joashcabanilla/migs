@@ -1,0 +1,145 @@
+<?php
+$connect = new PDO("mysql:host=localhost;dbname=novadeci_votesystem", "novadeci_mis", "n0v@d3c11976missim");
+$start_date_error = '';
+$end_date_error = '';
+
+if(isset($_POST["export"]))
+{
+ if(empty($_POST["start_date"]))
+ {
+  $start_date_error = '<label class="text-danger">Start Date is required</label>';
+ }
+ else if(empty($_POST["end_date"]))
+ {
+  $end_date_error = '<label class="text-danger">End Date is required</label>';
+ }
+ else
+ {
+  $file_name = 'Registered List.csv';
+  header("Content-Description: File Transfer");
+  header("Content-Disposition: attachment; filename=$file_name");
+  header("Content-Type: application/csv;");
+
+  $file = fopen('php://output', 'w');
+
+  $header = array("ID", "PBNO", "MEMID", "LAST NAME", "FIRST NAME", "MIDDLE NAME", "CONTACT NO", "BRANCH", "REGS DATE", "TIME", "ISREGISTERED", "PB");
+
+  fputcsv($file, $header);
+
+  $query = "
+  SELECT * FROM voters
+  WHERE regs_date >= '".$_POST["start_date"]."'
+  AND regs_date <= '".$_POST["end_date"]."'
+  AND isregistered= '1'
+  ORDER BY regs_date ASC
+  ";
+  $statement = $connect->prepare($query);
+  $statement->execute();
+  $result = $statement->fetchAll();
+  foreach($result as $row)
+  {
+   $data = array();
+   $data[] = $row["id"];
+   $data[] = $row["pbnum"];
+   $data[] = $row["memid"];
+   $data[] = $row["lastname"];
+   $data[] = $row["firstname"];
+   $data[] = $row["middlename"];
+   $data[] = $row["contact_no"];
+   $data[] = $row["branch"];
+   $data[] = $row["regs_date"];
+   $data[] = $row["voted_date"];
+   $data[] = $row["isregistered"];
+   $data[] = $row["pbno"];
+   fputcsv($file, $data);
+  }
+  fclose($file);
+  exit;
+ }
+}
+
+$query = "
+SELECT * FROM voters
+WHERE isregistered = '1'
+ORDER BY regs_date ASC;
+";
+
+$statement = $connect->prepare($query);
+$statement->execute();
+$result = $statement->fetchAll();
+?>
+
+<?php
+include_once 'config/Database.php';
+include_once 'class/User.php';
+$database = new Database();
+$db = $database->getConnection();
+$user = new User($db);
+if(!$user->loggedIn()) {
+	header("location: index.php");
+}
+include('inc/header.php');
+?>
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/dataTables.bootstrap.min.js"></script>
+<script src="js/jquery-1.12.4.js"></script>
+<link rel="stylesheet" href="css/bootstrap-3.3.7.min.css" />
+<link rel="stylesheet" href="css/bootstrap-datepicker.css" />
+<script src="js/bootstrap-datepicker.js"></script>
+
+<body>
+<?php include "menus.php"; ?>
+<br>
+<section id="main">
+	<div class="container">
+		<div class="row">
+			<?php include "left_menus.php"; ?>
+			<div class="col-md-9">
+				<div class="panel panel-default">
+					<div class="panel-heading" style="background:green;color:white;">
+						<h3 class="panel-title">EXPORT REGISTERED MEMBER</h3>
+					</div>
+					<div class="panel-body">
+						<div class="panel-heading">
+							<div class="row">
+								<form method="POST">
+					        <div class="modal-content" >
+					          <div class="modal-header"><h4 class="modal-title"><b>Select Date Between</b></h4></div>
+					          <div class="modal-body" >
+					            <div class="input-daterange">
+					              <div class="form-group">
+					                <div class="col-md-4"><span>
+					                  <input type="text" name="start_date" class="form-control" placeholder="From:" style="text-align:left" readonly />
+					                  <?php echo $start_date_error; ?>
+					                </div></span>
+					                <div class="col-md-4"><span>
+					                  <input type="text" name="end_date" class="form-control" placeholder="To:" style="text-align:left" readonly />
+					                  <?php echo $end_date_error; ?>
+					                </div></span>
+					              </div>
+					              <div>
+					                <button type="submit" name="export" class="btn btn-success" /><span class="glyphicon glyphicon-cloud-download"></span>&nbsp;Export</button>&nbsp;&nbsp;&nbsp;&nbsp;<a href="xport.php" style="color:purple"><span class="glyphicon glyphicon-refresh"></span>&nbsp;Refresh</a>
+					              </div>
+
+                        <br /><br /><br /><br />
+					            </div>
+					          </div>
+					        </div>
+					      </form>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<script>
+  $(document).ready(function(){
+   $('.input-daterange').datepicker({
+    todayBtn:'linked',
+    format: "yyyy-mm-dd",
+    autoclose: true
+   });
+  });
+</script>

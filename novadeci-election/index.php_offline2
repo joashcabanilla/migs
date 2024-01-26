@@ -1,0 +1,103 @@
+<?php
+  	session_start();
+  	if(isset($_SESSION['admin'])){
+    	header('location: admin/home.php');
+  	}
+
+    if(isset($_SESSION['voter'])){
+      header('location: home.php');
+    }
+?>
+<?php include 'includes/header.php'; ?>
+<style>
+    input[type="checkbox"] {
+    width: 25px;
+    height: 25px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: none;
+    /* outline: none; */
+}
+iframe {
+    width: 500px;
+    height: 160px;
+    margin: 0 auto;
+    display: block;
+    border-style:none;
+    /* background-color: #777; */
+}
+</style>
+<meta charset="utf-8">
+<link rel="stylesheet" href="bootstrap-3.3.6.min.css">
+<script src="jquery-1.12.0.min.js"></script>
+<script src="bootstrap-3.3.6.min.js"></script>
+<script>
+  $(document).ready(function () {
+$('#memberModal').modal('show');
+
+});
+</script>
+<!-- Modal -->
+<center>  
+<div class="modal fade" id="memberModal" tabindex="-1" role="dialog" aria-labelledby="memberModalLabel" aria-hidden="true">
+    <div class="modal-dialog" >
+        <div class="modal-content" style="width:530px;height:240px;">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true" style="color:red;">&times;</span></button>
+                 <h4 class="modal-title" id="memberModalLabel" style='text-align:left;'>45th General Assembly Quick Survey!</h4>
+            </div>
+            <div class="modal-body">
+
+              <iframe src="../survey/index.php"></iframe>
+
+            </div>
+             <div class="modal-footer">
+                <center><button type="button" class="btn btn-danger" data-dismiss="modal" >&times; Proceed to voting</button></center>
+            </div>
+        </div>
+    </div>
+</div>
+</center>
+
+
+<body class="hold-transition login-page">
+<div class="login-box">
+  	<div class="login-logo">
+  		<img src="assests/img/banner.svg" />
+  	</div>
+
+  	<div class="login-box-body">
+    	<p class="login-box-msg">Sign in to start your session</p>
+
+    	<form action="login.php" method="POST">
+      		<div class="form-group has-feedback">
+        		<input type="text" class="form-control" name="voter" placeholder="PB# / Member's ID" required>
+        		<span class="glyphicon glyphicon-user form-control-feedback"></span>
+      		</div>
+          <div class="form-group has-feedback"><label>Format: MM/DD/YYYY (ex.03/29/2021)<input type="checkbox" ></label>
+            <input type="text" class="date-input form-control" name="bday" placeholder="Birth Date" required>
+            <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
+          </div>
+      		<div class="row">
+    			  <div class="col-xs-4"></div>
+            <button style="text-align:center;" type="submit" class="btn btn-success" name="login"><i class="fa fa-sign-in"></i> Sign In</button>
+      		</div><br />
+          <label>Note: <br /><i> Incase of login error, please call </i> <span class="button btn-info" style="size:20px;text-align:center"> &nbsp;09176308051&nbsp;</span></label>
+    	</form>
+  	</div>
+  	<?php
+  		if(isset($_SESSION['error'])){
+  			echo "
+  				<div class='callout callout-danger text-center mt20'>
+			  		<p>".$_SESSION['error']."</p>
+			  	</div>
+  			";
+  			unset($_SESSION['error']);
+  		}
+  	?>
+</div>
+
+<?php include 'includes/scripts.php' ?>
+</body>
+</html>

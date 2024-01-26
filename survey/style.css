@@ -1,0 +1,20 @@
+.maindiv{
+text-align:left;
+font-size: 16px;
+font-family: Verdana;
+font-weight: normal; color: #fff;
+position: relative;
+ /*right: -100px; */
+ /*top: 100px; */
+background-color: #74c40c;
+/* width: 700px; */
+padding: 10px;
+}
+.lb{
+ text-align:left;
+FONT-SIZE: 16px;
+font-weight: normal; color: #fff;
+font-family: Verdana;
+position: relative;
+/* right: -20px; */
+}
