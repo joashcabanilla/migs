@@ -15,8 +15,8 @@ include('inc/header.php');
 <section id="main">
 	<div class="col-md-3"></div>
 	<div class="col-md-6 well" style="background-color:green">
-		<img src="img/1.png" width="270px;" style="margin-top: 7px;"/><h2 class="text-primary" style="color:#abdbe3; text-align:center">47th General Assembly<br /><i style="color:white;">MIGS VERIFICATION</i></h2>
-			<h5 style="text-align:center; color:yellow;font-size:11px;">MEMBERSHIP CUT OFF DATE: <span class="label label-info" style="font-size:12px;">DECEMBER 29, 2022</span></h5>
+		<img src="img/1.png" width="270px;" style="margin-top: 7px;"/><h2 class="text-primary" style="color:#abdbe3; text-align:center">48th General Assembly<br /><i style="color:white;">MIGS VERIFICATION</i></h2>
+			<h5 style="text-align:center; color:yellow;font-size:11px;">MEMBERSHIP CUT OFF DATE: <span class="label label-info" style="font-size:12px;">DECEMBER 29, 2023</span></h5>
 		<hr/>
 		<form method="POST" action="">
 			<div class="form-inline pull-left">

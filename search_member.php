@@ -1,5 +1,8 @@
 <?php
 	require 'conn.php';
+	$dateTime = new DateTime();
+    $dateTime->setTimezone(new DateTimeZone('Asia/Kuala_Lumpur'));
+
 	if(ISSET($_POST['search'])){
 ?>
 <!DOCTYPE html>
@@ -36,13 +39,12 @@
 <table class="table table-striped">
 			<?php			
 				$keyword = $_POST['keyword'];
-				$query = mysqli_query($conn, "SELECT * FROM `voters` WHERE pbno='$keyword' OR memid='$keyword' LIMIT 1") or die(mysqli_error());
-				// $query = mysqli_query($conn, "SELECT * FROM `voters` WHERE `pbno` LIKE '%$keyword%' LIMIT 1") or die(mysqli_error());
+				$query = mysqli_query($conn, "SELECT * FROM `voters` WHERE `pbno` LIKE '%$keyword%' OR `memid` LIKE '%$keyword%'");
 				$count = mysqli_num_rows($query);
+
 				if($count > 0){
 					while($fetch = mysqli_fetch_array($query)){
-						
-						$_SESSION['migs_pbno'] = $fetch['pbno'];
+						// $_SESSION['migs_pbno'] = $fetch['pbno'];
 
 						$checkGiveAwayQuery = "SELECT * from giveaways_record where voters_id = '". $fetch['id']."'";
 						$checkQuery = $conn->query($checkGiveAwayQuery);
@@ -51,7 +53,7 @@
 			?>
 			<thead class="alert alert-warning">
 					<tr class="alert alert-info">
-						<td style='font-size:25px;text-align:center;'><?php echo $fetch['firstname']." ". $fetch['middlename']." ". $fetch['lastname']?></td>
+						<td style='font-size:25px;text-align:center;'><?php echo utf8_encode($fetch['firstname']." ". $fetch['middlename']." ". $fetch['lastname'])?></td>
 					</tr>
 					<tr class="alert alert-success">
 						<?php
@@ -60,6 +62,8 @@
     						$title = $parse['election_title'];
     						$start_time = $parse['election_start_time'];
     						$end_time = $parse['election_end_time'];
+							$start_date = $parse['election_start_date'];
+							$end_date = $parse['election_end_date'];
 
 							if($fetch['isregistered']=='0' AND $fetch['status']=='MIGS') : 
 							
@@ -121,8 +125,6 @@
 															</div>
 														</div>
 														<div class="modal-footer">
-															<!-- <button type="button" class="btn btn-default btn-flat pull-left" data-dismiss="modal"
-															onclick = "$('.modal').removeClass('show').addClass('fade');"><i class="fa fa-close"></i> Close</button> -->
 															<button type="submit" class="btn btn-primary btn-flat" name="gaBtn"><i class="fa fa-save"></i> Save</button>
 														</div>
 													</form>
@@ -134,19 +136,19 @@
 							    	endif;
 							    endif;
 
-								if(date('h:i A', strtotime($start_time) - 60*60*8) < date("h:i A") && date('h:i A', strtotime($end_time) - 60*60*8) > date("h:i A"))
+								$currentDay = $dateTime->format("Y-m-d");
+								$electionDayStatus = date("Y-m-d", strtotime($start_date)) <= $dateTime->format("Y-m-d") && date("Y-m-d", strtotime($end_date)) >= $dateTime->format("Y-m-d");
+								
+								$electionStartTime = new DateTime(date("Y-m-d h:i A", strtotime($currentDay." ".$start_time)));
+
+								$electionEndTime = new DateTime(date("Y-m-d h:i A", strtotime($currentDay." ".$end_time)));
+
+								$currentDateTime = new DateTime($dateTime->format("Y-m-d h:i A"));
+
+								$electionTimeStatus =  $electionStartTime <= $currentDateTime && $electionEndTime >= $currentDateTime;
+								
+								if($electionDayStatus && $electionTimeStatus)
 								{
-									echo "<td style='font-size:25px;'>
-    										<center>
-    											<label style='color:green'>  M I G S!  </label>
-    											<br />
-    											<a href='#'>
-    												<label style='font-size:16px;color:red;cursor:pointer'> >>> Voting is no longer accessible <<< </label>
-    											</a>
-    										</center>
-    									</td>";
-									
-								} else {
 									echo "<td style='font-size:25px;'>
 											<center>
 												<label style='color:green'>  M I G S!  </label>
@@ -154,12 +156,24 @@
 												<label style='color:blue;font-size:14px;'>  Tandaan ang iyong old PB#/MemID <label style='color:red;font-size:24px;'>".$fetch['pbno']."</label> ito ang gagamitin sa pag sign-in sa voting! </label>
 												<br />
 												
-												 <a href='novadeci-election'>
+												 <a href='novadeci-election' data-pbno='".$fetch['pbno']."' class='voteBtn'>
 								 					<label style='font-size:20px;color:purple;cursor:pointer'> >>> Click here to VOTE <<< </label>
 												</a>
 												
 											</center>
 										</td>";
+									
+								} else {
+									echo "<td style='font-size:25px;'>
+    										<center>
+												<label style='color:black'>PB#/MemID: </label>
+												<label style='color:green'>".$fetch['pbno']."</label>
+												<br/>
+    											<label style='color:green'>  M I G S!  </label>
+    											<br />
+    												<label style='font-size:16px;color:red;cursor:pointer'> >>> Voting is no longer accessible <<< </label>
+    										</center>
+    									</td>";
 								}	
 								
 							endif;
@@ -187,20 +201,6 @@
 										</div>
 									</div>
 								</center></td>";
-							    
-								// echo "<td style='font-size:25px;'><center><label>ALREADY VOTED!</label><br />
-                				// 					<label style='font-size:14px;color:blue'><b>Please select your preffered slot for the 46th General Assembly Virtual Meeting to be held on March 19, 2022:</b></label><br />
-                
-                				// 					<label style='font-size:14px;color:brown'><b>Morning Session</b>&nbsp; (8:00 am - 12:00 noon)</label>
-                				// 					<label style='font-size:12px;color:brown'>Meeting ID: &nbsp;<input type='text' value='861 2002 7759' id='meeting_id1' style='height:20px;width:90px;font-size:12px;'>&nbsp;<button onclick='myFunctionMeetID1()' class='btn btn-info btn-work'>Copy</button></label>
-                				// 					<label style='font-size:12px;color:brown'>&nbsp;&nbsp;Passcode: &nbsp;<input type='text' value='320812' id='passcode1' style='height:20px;width:90px;font-size:12px;'>&nbsp;<button onclick='myFunctionPassCode1()' class='btn btn-info btn-work'>Copy</button></label>
-                				// 					<hr class='new2'/>
-                				// 					<label style='font-size:14px;color:purple'><b>Afternoon Session</b>&nbsp; (1:00 pm - 5:00 pm)</label>
-                				// 					<label style='font-size:12px;color:purple'>Meeting ID: &nbsp;<input type='text' value='814 1050 3867' id='meeting_id2' style='height:20px;width:90px;font-size:12px;'>&nbsp;<button onclick='myFunctionMeetID2()' class='btn btn-info btn-work2'>Copy</button></label>
-                				// 					<label style='font-size:12px;color:purple'>&nbsp;&nbsp;Passcode: &nbsp;<input type='text' value='639297' id='passcode2' style='height:20px;width:90px;font-size:12px;'>&nbsp;<button onclick='myFunctionPassCode2()' class='btn btn-info btn-work2'>Copy</button></label>
-                				// 				</center>
-    								
-    							// </td>";
 							}
 						?>
 					</tr>
@@ -303,6 +303,13 @@
 	}
 
 	reloadGiveAways()
+
+	$(".voteBtn").click((e) => {
+		e.preventDefault();
+		let pbno = $(e.currentTarget).data("pbno");
+		localStorage.setItem("pbno",pbno);
+		window.location = "/novadeci-election";
+	});
 </script>
 </body>
 </html>

@@ -1,16 +1,11 @@
 <?php
 
-	$parse = parse_ini_file('admin_nvdc/config.ini', FALSE, INI_SCANNER_RAW);
+	$parse = parse_ini_file('novadeci-election/admin_nvdc/config.ini', FALSE, INI_SCANNER_RAW);
 	$system_stat = $parse['system_status'];
 
 	if($system_stat == "UP") {
-	    
-        //xampp setup and server setup
-        header("location: index.php");
-    
-        //server setup
-        // header("location: /novadeci-election");
-    } 
+    header("location: index.php");
+  } 
 
 ?>
 
@@ -25,7 +20,7 @@ body, html {
 }
 
 .bgimg {
-  background-image: url('img/convention.jpg');
+  background-image: url('convention.jpg');
   height: 90%;
   background-position: center;
   background-size: cover;
@@ -58,7 +53,6 @@ body, html {
 hr {
   margin: auto;
   width: 40%;
-  border: 1px solid purple;
 }
 </style>
 <body>
@@ -70,7 +64,7 @@ hr {
   <div class="middle">
   <!--    <h1>This site is currently Offline! </h1>-->
 		<!--<img src="img/1.png" width="300px;" style="margin-top: 7px;"/>-->
-    <h1>The 48th GA Registration and Voting System is<br />
+    <h1>The 47th GA Registration and Voting System is<br />
     <h1 style="color:purple">OFFICIALLY CLOSED!</h1>. 
     <!--<hr>-->
    

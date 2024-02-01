@@ -17,9 +17,9 @@
 		if(isset($_SESSION['voter'])){
 			header('location: home.php');
 		}
-		if(!$_SESSION['migs_pbno']){
-			header('location: ../');
-		}
+		// if(!$_SESSION['migs_pbno']){
+		// 	header('location: ../');
+		// }
 		
 		include 'includes/header.php';
 	?>
@@ -43,11 +43,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
     	<form action="login.php" method="POST">
       		<div class="form-group has-feedback">
-        		<input type="text" class="form-control" name="voter" placeholder="PB# / Member's ID" readonly value="<?= $_SESSION['migs_pbno']?>">
+        		<input type="text" class="form-control" id="pbNo" name="voter" placeholder="PB# / Member's ID" readonly value="">
         		<span class="glyphicon glyphicon-user form-control-feedback"></span>
       		</div>
           <div class="form-group has-feedback"><label>Format: MM/DD/YYYY (ex.03/29/2021)</label>
-            <input type="text" class="date-input form-control" name="bday" placeholder="Birth Date" required>
+            <input type="date" class="date-input form-control" name="bday" placeholder="Birth Date" required>
             <span class="glyphicon glyphicon-calendar form-control-feedback"></span>
           </div>
       		<div class="text-center">
@@ -70,6 +70,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 </div>
 
 <?php include 'includes/scripts.php' ?>
+<script>
+	$(document).ready(() => {
+		let pbno = localStorage.getItem("pbno");
+		$("#pbNo").val(pbno);
+	});
+</script>
 </body>
 </html>
 
