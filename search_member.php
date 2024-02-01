@@ -164,22 +164,36 @@
 										</td>";
 									
 								} else {
-									echo "<td style='font-size:25px;'>
-    										<center>
-												<label style='color:black'>PB#/MemID: </label>
-												<label style='color:green'>".$fetch['pbno']."</label>
-												<br/>
-    											<label style='color:green'>  M I G S!  </label>
-    											<br />
-    												<label style='font-size:16px;color:red;cursor:pointer'> >>> Voting is no longer accessible <<< </label>
-    										</center>
-    									</td>";
+									// echo "<td style='font-size:25px;'>
+    								// 		<center>
+									// 			<label style='color:black'>PB#/MemID: </label>
+									// 			<label style='color:green'>".$fetch['pbno']."</label>
+									// 			<br/>
+    								// 			<label style='color:green'>  M I G S!  </label>
+    								// 			<br />
+    								// 				<label style='font-size:16px;color:red;cursor:pointer'> >>> Voting is no longer accessible <<< </label>
+    								// 		</center>
+    								// 	</td>";
+
+										echo "<td style='font-size:25px;'>
+										<center>
+											<label style='color:black'>PB#/MemID: </label>
+											<label style='color:green'>".$fetch['pbno']."</label>
+											<br/>
+											<label style='color:green'>  M I G S!  </label>
+										</center>
+									</td>";
 								}	
 								
 							endif;
 							if($fetch['isregistered']=='0' AND $fetch['status']=='NON-MIGS'){
 
-								echo "<td style='font-size:25px;'><center><label style='color:red'>  N O N - M I G S!  </label>
+								echo "<td style='font-size:25px;'>
+								<center>
+								<label style='color:black'>PB#/MemID: </label>
+								<label style='color:green'>".$fetch['pbno']."</label>
+								<br />
+								<label style='color:red'>  N O N - M I G S!  </label>
 								<br /><label style='font-size:20px;color:purple;'> Makipag ugnayan sa inyong account officer(AO)</label>
 								<label style='font-size:20px;color:blue;cursor:pointer' data-toggle='modal' data-target='#update_modal".$fetch['id']."'> >> Please click here << </label>
 								</center></td>";
@@ -204,6 +218,7 @@
 							}
 						?>
 					</tr>
+					<?php	include 'add_verification.php'; ?>
 			<?php
 					}
 				}else{

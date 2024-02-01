@@ -10,7 +10,7 @@ if(ISSET($_POST['save'])){
 	$status = $_POST['status'];
 	$verification_stat = $_POST['verification_stat'];
 
-	$sql = "SELECT * FROM nonmigs WHERE contact_no='$contact_no'";
+	$sql = "SELECT * FROM nonmigs WHERE contact_no='$contact_no' OR pbnum='$pbnum'";
 	$result = mysqli_query($conn, $sql);
 	if (mysqli_num_rows($result) > 0) {
 
