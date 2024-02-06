@@ -1,13 +1,13 @@
-<?php
+// <?php
 
-	$parse = parse_ini_file('novadeci-election/admin_nvdc/config.ini', FALSE, INI_SCANNER_RAW);
-	$system_stat = $parse['system_status'];
+// 	$parse = parse_ini_file('novadeci-election/admin_nvdc/config.ini', FALSE, INI_SCANNER_RAW);
+// 	$system_stat = $parse['system_status'];
 
-	if($system_stat == "UP") {
-    header("location: index.php");
-  } 
+// 	if($system_stat == "UP") {
+//     header("location: index.php");
+//   } 
 
-?>
+// ?>
 
 <!DOCTYPE html>
 <html>
@@ -64,8 +64,9 @@ hr {
   <div class="middle">
   <!--    <h1>This site is currently Offline! </h1>-->
 		<!--<img src="img/1.png" width="300px;" style="margin-top: 7px;"/>-->
-    <h1>The 47th GA Registration and Voting System is<br />
-    <h1 style="color:purple">OFFICIALLY CLOSED!</h1>. 
+    <!--<h1>The 48th GA Registration and Voting System is<br />-->
+    <h1>The MIGS Verifier System is<br />
+    <h1 style="color:purple">TEMPORARILY CLOSED.</h1> 
     <!--<hr>-->
    
   </div>

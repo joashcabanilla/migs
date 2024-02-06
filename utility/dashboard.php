@@ -54,10 +54,13 @@ include('inc/header.php');
 												<a href="#">
 													<?php
 													    include('conn.php');
-														foreach($conn->query('SELECT SUM(count)
-														FROM voters') as $row) {
-														echo "<h1 style='color:white;'>".number_format(46190)."</h1>";
-														}
+													    $result = $conn->query('SELECT * FROM voters');
+													    $totalRecords = number_format(count($result->fetch_all(MYSQLI_ASSOC)));
+													    echo "<h1 style='color:white;'>".$totalRecords."</h1>";
+												// 		foreach($conn->query('SELECT SUM(count)
+												// 		FROM voters') as $row) {
+												// 		echo "<h1 style='color:white;'>".number_format(46190)."</h1>";
+												// 		}
 														
 												// 		include('conn.php');
 												// 		foreach($conn->query('SELECT SUM(count)

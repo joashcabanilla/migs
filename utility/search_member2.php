@@ -25,14 +25,14 @@
 		<tbody>
 			<?php
 				$keyword = $_POST['keyword'];
-				$query = mysqli_query($conn, "SELECT * FROM `voters` WHERE pbno='$keyword' LIMIT 1") or die(mysqli_error());
+				$query = mysqli_query($conn, "SELECT * FROM `voters` WHERE pbno='$keyword' or memid='$keyword'") or die(mysqli_error());
 				$count = mysqli_num_rows($query);
 				if($count > 0){
 					while($fetch = mysqli_fetch_array($query)){
 			?>
 					<tr>
 						<td><?php echo $fetch['id']?></td>
-						<td><?php echo $fetch['pbno']?></td>
+						<td><?php echo !empty($fetch['pbno']) ? $fetch['pbno'] : $fetch['memid']?></td>
 						<td><?php echo $fetch['firstname']." ". $fetch['middlename']." ". $fetch['lastname']?></td>
 						<td ><span class="label label-info"><?php echo $fetch['bday']?> </span>
 						<td><?php echo $fetch['contact_no']?></td>

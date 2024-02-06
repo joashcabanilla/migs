@@ -39,7 +39,8 @@
 <table class="table table-striped">
 			<?php			
 				$keyword = $_POST['keyword'];
-				$query = mysqli_query($conn, "SELECT * FROM `voters` WHERE `pbno` LIKE '%$keyword%' OR `memid` LIKE '%$keyword%'");
+				// $query = mysqli_query($conn, "SELECT * FROM `voters` WHERE `pbno` LIKE '%$keyword%' OR `memid` LIKE '%$keyword%'");
+				$query = mysqli_query($conn, "SELECT * FROM `voters` WHERE `pbno`='$keyword' OR `memid`='$keyword'");
 				$count = mysqli_num_rows($query);
 
 				if($count > 0){
@@ -53,7 +54,7 @@
 			?>
 			<thead class="alert alert-warning">
 					<tr class="alert alert-info">
-						<td style='font-size:25px;text-align:center;'><?php echo utf8_encode($fetch['firstname']." ". $fetch['middlename']." ". $fetch['lastname'])?></td>
+						<td style='font-size:25px;text-align:center;'><?php echo $fetch['firstname']." ". $fetch['middlename']." ". $fetch['lastname'] ?></td>
 					</tr>
 					<tr class="alert alert-success">
 						<?php
@@ -147,13 +148,19 @@
 
 								$electionTimeStatus =  $electionStartTime <= $currentDateTime && $electionEndTime >= $currentDateTime;
 								
+								$pbno_label = $fetch['pbno'];
+								$label = "PB#";
+								if(empty($fetch['pbno'])){
+								   $pbno_label = $fetch['memid']; 
+								   $label = "MemID";
+								}
 								if($electionDayStatus && $electionTimeStatus)
 								{
 									echo "<td style='font-size:25px;'>
 											<center>
 												<label style='color:green'>  M I G S!  </label>
 												<br />
-												<label style='color:blue;font-size:14px;'>  Tandaan ang iyong old PB#/MemID <label style='color:red;font-size:24px;'>".$fetch['pbno']."</label> ito ang gagamitin sa pag sign-in sa voting! </label>
+												<label style='color:blue;font-size:14px;'>  Tandaan ang iyong ".$label."<label style='color:red;font-size:24px;'>".$pbno_label."</label> ito ang gagamitin sa pag sign-in sa voting! </label>
 												<br />
 												
 												 <a href='novadeci-election' data-pbno='".$fetch['pbno']."' class='voteBtn'>
@@ -177,8 +184,8 @@
 
 										echo "<td style='font-size:25px;'>
 										<center>
-											<label style='color:black'>PB#/MemID: </label>
-											<label style='color:green'>".$fetch['pbno']."</label>
+											<label style='color:black'>".$label.": </label>
+											<label style='color:green'>".$pbno_label."</label>
 											<br/>
 											<label style='color:green'>  M I G S!  </label>
 										</center>
@@ -186,12 +193,17 @@
 								}	
 								
 							endif;
-							if($fetch['isregistered']=='0' AND $fetch['status']=='NON-MIGS'){
-
+							if($fetch['isregistered']=='0' AND $fetch['status']=='NONMIGS'){
+							    $pbno_label = $fetch['pbno'];
+								$label = "PB#";
+								if(empty($fetch['pbno'])){
+								   $pbno_label = $fetch['memid']; 
+								   $label = "MemID";
+								}
 								echo "<td style='font-size:25px;'>
 								<center>
-								<label style='color:black'>PB#/MemID: </label>
-								<label style='color:green'>".$fetch['pbno']."</label>
+								<label style='color:black'>".$label.": </label>
+								<label style='color:green'>".$pbno_label."</label>
 								<br />
 								<label style='color:red'>  N O N - M I G S!  </label>
 								<br /><label style='font-size:20px;color:purple;'> Makipag ugnayan sa inyong account officer(AO)</label>
@@ -227,16 +239,18 @@
 					<span class='' style='size:16px;text-align:center;color:brown'>
 					
 	<pre>
-    0917-876-6802 (Lagro Office)   &nbsp;&nbsp;
-    0917-621-9412 (Bulacan Office) &nbsp;&nbsp;
-    0917-623-3640 (Fairview Office)&nbsp;&nbsp;
-    0917-713-9448 (Kiko Office)    &nbsp;&nbsp;
-    0917-876-6792 (Camarin Office) &nbsp;&nbsp;
-    0917-876-6800 (BSilang Office) &nbsp;&nbsp;
+    0917-8766-802 (Lagro Office)   &nbsp;&nbsp;
+    0917-6219-412 / (2)7115041 (Bulacan Office) &nbsp;&nbsp;
+    0917-6233-640 / 0917-8766-794 (Fairview Office)&nbsp;&nbsp;
+    0917-8350-689 / 0933-8673-779 (Kiko Office)    &nbsp;&nbsp;
+    0917-8766-782 / 896-204-26 (Camarin Office) &nbsp;&nbsp;
+    0917-8766-797 / 0933-8673-768 (Cubao Office)    &nbsp;&nbsp;
+    0917-6312-915 / 0933-8673-777 (BSilang Office) &nbsp;&nbsp;
     0917-620-3141 (Main Office)    &nbsp;&nbsp;
     0917-620-2749 (Main Office)    &nbsp;&nbsp;
     0917-620-2618 (Main Office)    &nbsp;&nbsp;
     0917-876-6795 (Main Office)    &nbsp;&nbsp;
+    0933-8673-769 / 0917-8766-796 (Tsora Office) &nbsp;&nbsp;
     </pre>
 					
 				

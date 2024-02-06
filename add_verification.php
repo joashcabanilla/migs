@@ -47,16 +47,18 @@
 							<label>OR</label><br /><br />
 							<label>You may Call these Hotlines:<br /> <span class="button btn-info" style="size:20px;text-align:center">
 	<pre>
-    0917-876-6802 (Lagro Office)   &nbsp;&nbsp;
-    0917-621-9412 (Bulacan Office) &nbsp;&nbsp;
-    0917-623-3640 (Fairview Office)&nbsp;&nbsp;
-    0917-713-9448 (Kiko Office)    &nbsp;&nbsp;
-    0917-876-6792 (Camarin Office) &nbsp;&nbsp;
-    0917-876-6800 (BSilang Office) &nbsp;&nbsp;
+    0917-8766-802 (Lagro Office)   &nbsp;&nbsp;
+    0917-6219-412 / (2)7115041 (Bulacan Office) &nbsp;&nbsp;
+    0917-6233-640 / 0917-8766-794 (Fairview Office)&nbsp;&nbsp;
+    0917-8350-689 / 0933-8673-779 (Kiko Office)    &nbsp;&nbsp;
+    0917-8766-782 / 896-204-26 (Camarin Office) &nbsp;&nbsp;
+    0917-8766-797 / 0933-8673-768 (Cubao Office)    &nbsp;&nbsp;
+    0917-6312-915 / 0933-8673-777 (BSilang Office) &nbsp;&nbsp;
     0917-620-3141 (Main Office)    &nbsp;&nbsp;
     0917-620-2749 (Main Office)    &nbsp;&nbsp;
     0917-620-2618 (Main Office)    &nbsp;&nbsp;
     0917-876-6795 (Main Office)    &nbsp;&nbsp;
+    0933-8673-769 / 0917-8766-796 (Tsora Office) &nbsp;&nbsp;
     </pre>
                                   </span></label>
 						</div>

@@ -25,7 +25,7 @@
 		<tbody>
 			<?php
 				$keyword = $_POST['keyword'];
-				$query = mysqli_query($conn, "SELECT * FROM `voters` WHERE pbno='$keyword' LIMIT 1") or die(mysqli_error());
+				$query = mysqli_query($conn, "SELECT * FROM `voters` WHERE pbno='$keyword' or memid='$keyword'") or die(mysqli_error());
 				// $query = mysqli_query($conn, "SELECT * FROM `voters` WHERE `voters_id` LIKE '%$keyword%' LIMIT 1") or die(mysqli_error());
 				$count = mysqli_num_rows($query);
 				if($count > 0){
@@ -33,7 +33,7 @@
 			?>
 					<tr>
 						<td><?php echo $fetch['id']?></td>
-						<td><?php echo $fetch['pbno']?></td>
+						<td><?php echo !empty($fetch['pbno']) ? $fetch['pbno'] : $fetch['memid']?></td>
 						<!--<td><?php echo $fetch['voters_id']?></td>-->
 						<td><?php echo $fetch['firstname']." ". $fetch['middlename']." ". $fetch['lastname']?></td>
 						<td><?php echo $fetch['bday']?></td>
