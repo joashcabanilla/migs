@@ -13,7 +13,7 @@
 			"id" => $data["id"],
 			"memid" => !empty($data["memid"]) ? $data["memid"] : "No Data",
 			"pbno" => !empty($data["pbno"]) ? $data["pbno"] : "No Data",
-			"name" => utf8_encode($data["firstname"]." ".$data["middlename"]." ".$data["lastname"]),
+			"name" => $data["firstname"]." ".$data["middlename"]." ".$data["lastname"],
 			"status" => $data["status"],
 			"registered" => $data["isregistered"] == 0 ? false : true,
 			"bday" => $data["bday"],

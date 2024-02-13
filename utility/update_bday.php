@@ -1,17 +1,17 @@
-<div class="modal fade" id="update_modal<?php echo $fetch['id']?>" aria-hidden="true">
+<div class="modal fade updateBdayModal" id="update_modal<?php echo $data['id']?>" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<form method="POST" action="update_bday_query.php">
+			<form method="POST" class="updateBdayForm">
 				<div class="modal-header"><label>Update member's birth date:</label>
-					<h3 class="modal-title" style="color:green;text-align:center">&nbsp;&nbsp;&nbsp;<?php echo $fetch['firstname']." ". $fetch['middlename']." ". $fetch['lastname']?></h3>
+					<h3 class="modal-title" style="color:green;text-align:center">&nbsp;&nbsp;&nbsp;<?php echo $data['firstname']." ". $data['middlename']." ". $data['lastname']?></h3>
 				</div>
 				<div class="modal-body">
 					<div class="col-md-2"></div>
 					<div class="col-md-8">
 						<div class="form-group">
-							<input type="hidden" name="id" value="<?php echo $fetch['id']?>"/>
-							Birth date: MM/DD/YYYY<input class="form-control" name="bday" value="<?php echo $fetch['bday']?>" style="font-size:28px;text-align:center">
-							<!--<input class="form-control" name="modified_bday" value="<?php echo $fetch['modified_bday']?>" >-->
+							<input type="hidden" name="id" value="<?php echo $data['id']?>"/>
+							Birth date: MM/DD/YYYY<input type="date" class="form-control" name="bday" value="<?php echo date("Y-m-d", strtotime($data['bday']))?>" style="font-size:28px;text-align:center">
+							<input type="hidden" name="updatedBy" value="<?php echo $_SESSION["firstname"]?>"/>
 						</div>
 					</div>
 					<div style="clear:both;">

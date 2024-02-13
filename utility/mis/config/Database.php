@@ -2,10 +2,17 @@
 session_start();
 class Database{
 
+	//for live site
+	// private $host  = 'localhost';
+    // private $user  = 'u209391291_mis_votes';
+    // private $password   = "n0v@d3c11976MIS";
+    // private $database  = "u209391291_votesystem";
+
+	//for local dev site
 	private $host  = 'localhost';
-    private $user  = 'novadeci_mis';
-    private $password   = "n0v@d3c11976missim";
-    private $database  = "novadeci_votesystem";
+	private $user  = 'root';
+	private $password   = "";
+	private $database  = "migs";
 
     public function getConnection(){
 		$conn = new mysqli($this->host, $this->user, $this->password, $this->database);

@@ -1,12 +1,20 @@
 <?php
 	require_once 'conn.php';
-	if(ISSET($_POST['update'])){
+	if(ISSET($_POST['id']) && !empty($_POST['id'])){
+		$dateTime = new DateTime();
+		$dateTime->setTimezone(new DateTimeZone('Asia/Kuala_Lumpur'));
+		$currentDate = $dateTime->format("Y-m-d H:i:s");
 		$id = $_POST['id'];
-		$bday = trim($_POST['bday']);
-		mysqli_query($conn, "UPDATE `voters` SET `bday` = '$bday', `modified_bday` = '1' WHERE `id` = '$id'") or die(mysqli_error());
+		$bday = date("m/d/Y",strtotime($_POST['bday']));
+		$firstname = $_POST['updatedBy'];
 
-header("Refresh: 1; url= search2.php");
-echo '<div style="background-color:purple;color:white;text-align:center;margin-top:150px;"><h1>Member birth date updated successfully!</h1></div>';
+		mysqli_query($conn, "UPDATE `voters` SET `bday` = '$bday', `modified_bday` = '1', `update_bday_by` = '$firstname', `update_bday`='$currentDate' WHERE `id` = '$id'");
 
+		$result = [
+			"status" => "success",
+			"message" => "Member birth date updated successfully!"
+		];
+	
+		echo json_encode($result);
 	}
 ?>

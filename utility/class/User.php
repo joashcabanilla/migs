@@ -14,14 +14,16 @@ class User {
 				SELECT * FROM ".$this->userTable." 
 				WHERE email = ? AND password = ?";			
 			$stmt = $this->conn->prepare($sqlQuery);
-			$stmt->bind_param("ss", $this->email, md5($this->password));	
+			// $stmt->bind_param("ss", $this->email, md5($this->password));
+			$stmt->bind_param("ss", $this->email, $this->password);	
 			$stmt->execute();
 			$result = $stmt->get_result();
 			if($result->num_rows > 0){
 				$user = $result->fetch_assoc();
 				$_SESSION["userid"] = $user['id'];
 				$_SESSION["user_type"] = $user['type'];
-				$_SESSION["name"] = $user['first_name']." ".$user['last_name'];					
+				$_SESSION["name"] = $user['first_name']." ".$user['last_name'];
+				$_SESSION["firstname"] = $user['first_name'];					
 				return 1;		
 			} else {
 				return 0;		

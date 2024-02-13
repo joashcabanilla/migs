@@ -37,7 +37,7 @@ include('inc/header.php');
 				<form id="loginform" class="form-horizontal" role="form" method="POST" action="">
 					<div style="margin-bottom: 25px" class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-						<input type="text" class="form-control" id="email" name="email" placeholder="email" style="background:white;" required>
+						<input type="text" class="form-control" id="email" name="email" placeholder="username" style="background:white;" required>
 					</div>
 					<div style="margin-bottom: 25px" class="input-group">
 						<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
@@ -48,15 +48,9 @@ include('inc/header.php');
 						  <input type="submit" name="login" value="Login" class="btn btn-success">
 						</div>
 					</div>
-					<!--<div style="margin-top:10px" class="form-group">-->
-					<!--	<div class="col-sm-12 controls">-->
-
-					<!--	</div>-->
-					<!--</div>-->
 				</form>
 			</div>
 		</div>
 	</div>
 	</div>
 </div>
-<?php include('inc/footer.php');?>
