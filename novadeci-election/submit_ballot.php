@@ -8,7 +8,7 @@
     }
 
 	if(isset($_POST['vote'])){
-
+		echo $_POST['vote'];
 		$hasAccount = $_SESSION['frontAccountID'] != null ? " pre_ga_lane = '".$_SESSION['frontAccountID']."', " : '';
 
 		$host = gethostbyaddr($_SERVER['REMOTE_ADDR']);

@@ -1,19 +1,3 @@
-<?php
-
-	$parse = parse_ini_file('admin_nvdc/config.ini', FALSE, INI_SCANNER_RAW);
-	$system_stat = $parse['system_status'];
-
-	if($system_stat == "UP") {
-	    
-        //xampp setup and server setup
-        header("location: index.php");
-    
-        //server setup
-        // header("location: /novadeci-election");
-    } 
-
-?>
-
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>

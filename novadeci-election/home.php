@@ -1,3 +1,10 @@
+<?php
+	include '../checkElectionStatus.php';
+
+	if($electionStatus != "open") : 
+		include 'index-down-site.php';
+	else : 
+?>
 <?php include 'includes/session.php'; ?>
 <?php include 'includes/header.php'; ?>
 <body class="hold-transition skin-green layout-top-nav">
@@ -378,3 +385,6 @@
 </script>
 </body>
 </html>
+<?php 
+	endif;
+?>

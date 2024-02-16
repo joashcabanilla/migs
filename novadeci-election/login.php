@@ -4,12 +4,11 @@
 
 	if(isset($_POST['login'])){
 		$voter = $_POST['voter'];
-		$bday = $_POST['bday'];
-
-// 		$sql = "SELECT * FROM voters WHERE pbno = '$voter' AND bday = '$bday' AND status = 'MIGS'";
-		$sql = "SELECT * FROM voters WHERE pbno = '$voter' AND bday = '$bday' AND status = 'MIGS' OR memid = '$voter' AND bday = '$bday' AND status = 'MIGS'";
-
-
+		$bday = date("m/d/Y", strtotime($_POST['bday']));
+		$memberID = $_POST['memberID'];
+		
+		$sql = "SELECT * FROM voters WHERE id='$memberID' and bday='$bday' and status='MIGS'";
+		
 		$query = $conn->query($sql);
 
 		if($query->num_rows < 1){

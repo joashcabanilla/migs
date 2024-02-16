@@ -307,6 +307,16 @@
 									$("#nonmigsForm").find("input[name='status']").val(data.status);
 									$(".nonmigsNameLabel").text(data.name);
 								});
+								
+								memberDataTable.find(".voteBtn").click((e) => {
+									localStorage.setItem("memberID",data.id);
+									if(data.pbno != "No Data"){
+										localStorage.setItem("pbno",data.pbno);
+									}else{
+										localStorage.setItem("pbno",data.memid);
+									}
+									window.location.href = "novadeci-election";
+								});
 
 								$(".memberContainer").append(memberDataTable);
 							});
