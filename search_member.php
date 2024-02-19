@@ -19,7 +19,7 @@
 			"bday" => $data["bday"],
 			"branch" => $data["branch"],
 			"status" => $data["status"]
-		];
+		];	
 	}
 	$result["memberData"] = $memberData;
 	echo json_encode($result);
